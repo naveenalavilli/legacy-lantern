@@ -14,7 +14,7 @@ async function getGenerator() {
   status.textContent = 'Loading the open model locally… first run may take a minute.';
   const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.3');
   env.allowLocalModels = false;
-  generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-0.5B-Instruct', {
+  generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-1.5B-Instruct', {
     dtype: 'q4',
     device: navigator.gpu ? 'webgpu' : 'wasm',
     progress_callback: ({ status: state, progress, file }) => {
