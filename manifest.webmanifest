@@ -1,0 +1,1 @@
+{"name":"Legacy Lantern","short_name":"Lantern","description":"Private, local-first AI remembrances.","start_url":"./","display":"standalone","background_color":"#100b18","theme_color":"#100b18","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}

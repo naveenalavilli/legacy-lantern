@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#120d1d" />
+  <meta name="description" content="A private, local-first remembrance studio powered by open-weight AI." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Legacy Lantern — memories stay with you</title>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header>
+    <a class="brand" href="#top" aria-label="Legacy Lantern home">
+      <span class="flame" aria-hidden="true">✦</span>
+      <span>Legacy Lantern</span>
+    </a>
+    <div class="privacy-pill"><span></span> Local & private</div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">A light for the stories we carry</p>
+      <h1>Some memories deserve<br /><em>their own glow.</em></h1>
+      <p class="lede">Create a remembrance from the details only you know. Open-weight AI runs on your device, so family stories never leave it.</p>
+      <a class="primary" href="#studio">Light a lantern <span>↓</span></a>
+      <div class="marigolds" aria-hidden="true">✺　✽　✺</div>
+    </section>
+
+    <section class="promise" aria-label="Privacy promise">
+      <div><strong>01</strong><span>No account</span><small>Begin without a login.</small></div>
+      <div><strong>02</strong><span>No upload</span><small>Inference happens here.</small></div>
+      <div><strong>03</strong><span>No lock-in</span><small>Export your keepsake.</small></div>
+    </section>
+
+    <section id="studio" class="studio">
+      <div class="section-heading">
+        <p class="eyebrow">Remembrance studio</p>
+        <h2>Tell the machine what<br />the machine could never know.</h2>
+      </div>
+
+      <form id="memory-form">
+        <div class="field wide">
+          <label for="name">Who are we remembering?</label>
+          <input id="name" name="name" autocomplete="off" placeholder="e.g. Abuela Rosa" required maxlength="80" />
+        </div>
+        <div class="field">
+          <label for="relationship">Their place in your life</label>
+          <input id="relationship" name="relationship" placeholder="e.g. My grandmother" required maxlength="100" />
+        </div>
+        <div class="field">
+          <label for="voice">The feeling</label>
+          <select id="voice" name="voice">
+            <option value="warm and grateful">Warm & grateful</option>
+            <option value="gentle and reflective">Gentle & reflective</option>
+            <option value="joyful and celebratory">Joyful & celebratory</option>
+            <option value="quietly humorous">Quietly humorous</option>
+          </select>
+        </div>
+        <div class="field wide">
+          <label for="memory">A moment you still carry</label>
+          <textarea id="memory" name="memory" rows="5" required maxlength="900" placeholder="The kitchen smelled like cinnamon every Sunday. She never measured anything, but it always came out right..."></textarea>
+          <small><span id="count">0</span>/900</small>
+        </div>
+        <div class="field">
+          <label for="details">Favorite things</label>
+          <input id="details" name="details" placeholder="marigolds, boleros, strong coffee" maxlength="180" />
+        </div>
+        <div class="field">
+          <label for="language">Write the tribute in</label>
+          <select id="language" name="language">
+            <option>English</option>
+            <option>Spanish</option>
+            <option>French</option>
+            <option>Portuguese</option>
+            <option>Hindi</option>
+          </select>
+        </div>
+        <div class="wide action-row">
+          <button class="primary" id="generate" type="submit">Create remembrance <span>✦</span></button>
+          <p id="model-status" role="status">Model downloads once, then stays in your browser cache.</p>
+        </div>
+      </form>
+    </section>
+
+    <section id="result" class="result" hidden aria-live="polite">
+      <div class="lantern-mark" aria-hidden="true">✦</div>
+      <p class="eyebrow">A lantern for <span id="result-name"></span></p>
+      <blockquote id="tribute"></blockquote>
+      <div class="result-actions">
+        <button id="copy" class="secondary" type="button">Copy keepsake</button>
+        <button id="download" class="secondary" type="button">Download .txt</button>
+        <button id="again" class="text-button" type="button">Write another</button>
+      </div>
+      <p class="local-note">Generated on this device. Nothing was sent to a server.</p>
+    </section>
+
+    <section class="how">
+      <p class="eyebrow">The ghost in this machine is open</p>
+      <h2>Private by architecture,<br />not by promise.</h2>
+      <p>Legacy Lantern uses <a href="https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct" target="_blank" rel="noreferrer">Qwen2.5-0.5B-Instruct</a> through the open-source Transformers.js runtime. Model weights execute locally with WebGPU or WASM. After the first model download, your memories can stay off the internet—and outside anyone else’s database.</p>
+    </section>
+  </main>
+
+  <footer><span>Legacy Lantern</span><span>Open source · local first · made with remembrance</span></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
