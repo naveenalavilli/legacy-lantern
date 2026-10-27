@@ -30,6 +30,17 @@ function promptFor(data) {
     { role: 'user', content: `Person: ${data.name}\nRelationship: ${data.relationship}\nMemory: ${data.memory}\nFavorite things: ${data.details || 'not provided'}` }];
 }
 
+function groundedFallback(data) {
+  const favorites = data.details ? ` I remember, too, how ${data.details} belonged to the world around you.` : '';
+  return `${data.memory} That moment still carries the ${data.voice} feeling you brought into my life as my ${data.relationship}.${favorites} ${data.name}, thank you for leaving me this memory to hold close.`;
+}
+
+function isGrounded(text, data) {
+  const anchors = data.memory.toLowerCase().match(/[a-z]{5,}/g) || [];
+  const matches = anchors.filter(word => text.toLowerCase().includes(word)).length;
+  return text.includes(data.name) && matches >= Math.min(4, anchors.length) && /[.!?]$/.test(text.trim());
+}
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(form));
@@ -41,7 +52,8 @@ form.addEventListener('submit', async (event) => {
     const generated = output?.[0]?.generated_text;
     const text = Array.isArray(generated) ? generated.at(-1)?.content : generated;
     if (!text) throw new Error('The model returned an empty remembrance.');
-    tribute.textContent = text.trim();
+    const cleanText = text.trim();
+    tribute.textContent = isGrounded(cleanText, data) ? cleanText : groundedFallback(data);
     document.querySelector('#result-name').textContent = data.name;
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'center' });
