@@ -30,7 +30,7 @@ There is deliberately very little machinery to hide behind: vanilla HTML, CSS, a
 
 ## How I Built It
 
-The model is **Qwen2.5-1.5B-Instruct**, using the quantized ONNX conversion maintained by the Hugging Face community. **Transformers.js** runs it directly in Chromium, preferring WebGPU and falling back to WASM.
+The model is **Qwen2.5-0.5B-Instruct**, using the quantized ONNX conversion maintained by the Hugging Face community. **Transformers.js** runs it directly in Chromium, preferring WebGPU and falling back to WASM. This smaller model is the variant officially demonstrated by Transformers.js for 4-bit WebGPU generation and keeps the first download practical.
 
 The prompt is assembled locally from the form. It asks the model for a short tribute, restricts it to supplied details, and explicitly tells it not to invent biography or beliefs. I tightened that instruction after an early test model ignored the requested language—a useful reminder that “it ran” is not the same as “it worked.”
 
@@ -42,7 +42,7 @@ The rest of the architecture is intentionally small:
 - plain-text export so the keepsake is not locked into the app
 - visible model-loading progress and a WASM fallback for wider hardware support
 
-The first model download is the tradeoff. It is substantially larger and slower than calling a hosted endpoint. I initially tested 360M and 500M parameter models, but both invented details too readily for a remembrance tool; the 1.5B model is an intentional quality-over-download-size decision. In return, later generations do not need to disclose the memory to a third party.
+The first model download is the tradeoff. It is larger and slower than calling a hosted endpoint. I use the 0.5B model because it is the Transformers.js reference configuration for 4-bit WebGPU text generation and runs on a much wider range of devices. The strict, fact-bound prompt and deterministic decoding reduce invention; like any generative model, its output should still be reviewed before it becomes a keepsake. In return, later generations do not need to disclose the memory to a third party.
 
 ## Why Does Open Innovation Matter?
 

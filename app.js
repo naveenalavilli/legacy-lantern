@@ -6,15 +6,16 @@ const generateButton = document.querySelector('#generate');
 const result = document.querySelector('#result');
 const tribute = document.querySelector('#tribute');
 let generator;
+const MODEL_ID = 'onnx-community/Qwen2.5-0.5B-Instruct';
 
 memory.addEventListener('input', () => { count.textContent = memory.value.length; });
 
 async function getGenerator() {
   if (generator) return generator;
   status.textContent = 'Loading the open model locally… first run may take a minute.';
-  const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.7.3');
+  const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1');
   env.allowLocalModels = false;
-  generator = await pipeline('text-generation', 'onnx-community/Qwen2.5-1.5B-Instruct', {
+  generator = await pipeline('text-generation', MODEL_ID, {
     dtype: 'q4',
     device: navigator.gpu ? 'webgpu' : 'wasm',
     progress_callback: ({ status: state, progress, file }) => {
@@ -47,7 +48,8 @@ form.addEventListener('submit', async (event) => {
     status.textContent = 'Ready offline — model and memories remain on this device.';
   } catch (error) {
     console.error(error);
-    status.textContent = 'The local model could not start. Check WebGPU support or connection for the first download, then try again.';
+    generator = undefined;
+    status.textContent = `The local model could not start: ${error?.message || 'unknown browser error'}. Try again or update your browser.`;
   } finally { generateButton.disabled = false; }
 });
 

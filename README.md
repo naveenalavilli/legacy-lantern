@@ -2,7 +2,7 @@
 
 A private, local-first remembrance studio for the Hacktoberfest 2026 **Ghost in the Machine** challenge.
 
-Legacy Lantern turns a specific family memory into a short keepsake using the open-weight [Qwen2.5-1.5B-Instruct](https://huggingface.co/onnx-community/Qwen2.5-1.5B-Instruct) model. Inference runs inside the browser through [Transformers.js](https://huggingface.co/docs/transformers.js), using WebGPU when available and WASM as a fallback. No story, name, or prompt is sent to an inference API.
+Legacy Lantern turns a specific family memory into a short keepsake using the open-weight [Qwen2.5-0.5B-Instruct](https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct) model. Inference runs inside the browser through [Transformers.js](https://huggingface.co/docs/transformers.js), using WebGPU when available and WASM as a fallback. No story, name, or prompt is sent to an inference API.
 
 ## Run it
 
@@ -29,7 +29,7 @@ Remembrances may contain names, family history, cultural practices, and intimate
 
 - Vanilla HTML, CSS, and JavaScript
 - Transformers.js 3.7.3
-- Qwen2.5-1.5B-Instruct (quantized)
+- Qwen2.5-0.5B-Instruct (quantized)
 - WebGPU / WASM
 - Service Worker + Web App Manifest
 
